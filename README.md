@@ -1,3 +1,10 @@
-Exports mos.ru chat history from tg in XLSX format
+Экспорт истории чатов mos.ru в формате .xlsx
 
-Python 3.*, needs to be installed to "C:\Users\User\AppData\Local\Programs\Python\Python38"
+Необходим Python 3.*, путь установки: "C:\Users\User\AppData\Local\Programs\Python\Python38"
+
+Инструкция:
+1. Экспортировать историю чата «mos.ru Результаты автотестов» или «monitoring» - при выборе параметров экспорта снять галочки с медиа-файлов и указать максимальный размер.
+2. После экспорта открыть созданный файл «messages.html» и скопировать URL.
+3. Запустить скрипт «start.bat», в открывшемся окне вставить скопированный URL.
+4. Ждать
+5. После выполнения скрипта автоматически откроется файл созданный файл report.xlsx.
