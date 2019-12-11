@@ -50,7 +50,7 @@ for i in range(len(messages_array)):
 		assembled_index = i
 	else:
 		if ("✅" in messages_array[assembled_index].text):
-			messages_array[assembled_index].text = "\n\n" + messages_array[i].text
+			messages_array[assembled_index].text = messages_array[i].text
 			excess.append(i)
 		else:
 			messages_array[assembled_index].text += "\n\n" + messages_array[i].text
