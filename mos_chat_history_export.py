@@ -39,8 +39,8 @@ html_messages = browser.find_elements_by_xpath("//div[contains(@class, 'message 
 
 #конвертация сообщений в массив
 messages_array = []
-for i in range(len(html_messages)):
-	messages_array.append(TelegramMessage(html_messages[i]))
+for msg in html_messages:
+	messages_array.append(TelegramMessage(msg))
 
 #обработка --joined
 assembled_index = 0
@@ -49,8 +49,12 @@ for i in range(len(messages_array)):
 	if (messages_array[i].sender != "--joined"):
 		assembled_index = i
 	else:
-		messages_array[assembled_index].text += "\n\n" + messages_array[i].text
-		excess.append(i)
+		if ("✅" in messages_array[assembled_index].text):
+			messages_array[assembled_index].text = "\n\n" + messages_array[i].text
+			excess.append(i)
+		else:
+			messages_array[assembled_index].text += "\n\n" + messages_array[i].text
+			excess.append(i)
 
 for index in reversed(excess):
 	messages_array.pop(index)
