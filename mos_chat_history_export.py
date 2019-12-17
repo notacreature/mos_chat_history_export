@@ -47,8 +47,10 @@ assembled_index = 0
 excess = []
 for i in range(len(messages_array)):
 	if (messages_array[i].sender != "--joined"):
-		if ((messages_array[i].sender == messages_array[assembled_index].sender) and ("Смотрим" in messages_array[assembled_index].text)):
-			messages_array[assembled_index].text += "\n\n" + messages_array[i].text
+		if (("✅" not in messages_array[i].text) and \
+			(messages_array[i].sender == messages_array[assembled_index].sender) and \
+			("Смотрим" in messages_array[assembled_index].text)):
+				messages_array[assembled_index].text += "\n\n" + messages_array[i].text
 		assembled_index = i
 	else:
 		if ("✅" in messages_array[assembled_index].text):
