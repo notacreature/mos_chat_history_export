@@ -47,7 +47,7 @@ assembled_index = 0
 excess = []
 for i in range(len(messages_array)):
 	if (messages_array[i].sender != "--joined"):
-		if (("✅" not in messages_array[i].text) and \
+		if (("Mos" not in messages_array[i].sender) and \
 			(messages_array[i].sender == messages_array[assembled_index].sender) and \
 			("Смотрим" in messages_array[assembled_index].text)):
 				messages_array[assembled_index].text += "\n\n" + messages_array[i].text
