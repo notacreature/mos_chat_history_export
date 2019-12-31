@@ -1,6 +1,5 @@
 from selenium import webdriver
 import os
-import re
 import xlsxwriter
 
 class TelegramMessage:	
@@ -69,14 +68,10 @@ for index in reversed(excess):
 messages_table = []
 for i in range(len(messages_array)):
 	if (i < (len(messages_array) - 1)):
-		task_url = "https://olymp-moscow.atlassian.net/browse/"
-		task_re = "[A-Z]+-\d{1,5}"
 		if (messages_array[i].sender == "MosruQaBot") and (messages_array[i + 1].sender != "MosruQaBot"):
-			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text], \
-				task_url + re.search(task_re, messages_array[i + 1].text).group())
+			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text])
 		elif (messages_array[i].sender == "Mos.ru") and (messages_array[i + 1].sender != "Mos.ru"):
-			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text], \
-				task_url + re.search(task_re, messages_array[i + 1].text).group())
+			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text])
 			
 #экспорт в xlsx
 workbook = xlsxwriter.Workbook(f"report.xlsx")
