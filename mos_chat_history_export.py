@@ -1,4 +1,5 @@
 from selenium import webdriver
+import re
 import xlsxwriter
 import sys
 
@@ -66,11 +67,13 @@ for index in reversed(excess):
 messages_table = []
 for i in range(len(messages_array)):
 	if (i < (len(messages_array) - 1)):
-		if (messages_array[i].sender == "MosruQaBot") and (messages_array[i + 1].sender != "MosruQaBot"):
+		bot_re = re.compile("MosruQaBot|Mos.ru")
+		if (bot_re.match(messages_array[i].sender)) and not (bot_re.match(messages_array[i + 1].sender)):
 			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text])
-		elif (messages_array[i].sender == "Mos.ru") and (messages_array[i + 1].sender != "Mos.ru"):
-			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text])
-			
+			ticket_re = re.compile("[A-Z]+-\d{1,5}")
+			if (ticket_re.search(messages_array[i + 1].text)):
+				messages_table[-1].append("https://olymp-moscow.atlassian.net/browse/" + ticket_re.search(messages_array[i + 1].text)[0])
+
 #экспорт в xlsx
 workbook = xlsxwriter.Workbook(f"report.xlsx")
 worksheet = workbook.add_worksheet()
