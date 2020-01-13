@@ -69,10 +69,14 @@ for i in range(len(messages_array)):
 	if (i < (len(messages_array) - 1)):
 		bot_re = re.compile("MosruQaBot|Mos.ru")
 		if (bot_re.match(messages_array[i].sender)) and not (bot_re.match(messages_array[i + 1].sender)):
-			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text])
+			messages_table.append([messages_array[i].date, messages_array[i + 1].sender, messages_array[i].text, messages_array[i + 1].text, " "])
 			ticket_re = re.compile("[A-Z]+-\d{1,5}")
+			hpsm_re = re.compile("[A-Z]{1,2}\d{8}")
 			if (ticket_re.search(messages_array[i + 1].text)):
-				messages_table[-1].append("https://olymp-moscow.atlassian.net/browse/" + ticket_re.search(messages_array[i + 1].text)[0])
+				messages_table[-1][4] = "https://olymp-moscow.atlassian.net/browse/" + ticket_re.search(messages_array[i + 1].text)[0]
+			elif (hpsm_re.search(messages_array[i + 1].text)):
+				messages_table[-1][4] = hpsm_re.search(messages_array[i + 1].text)[0]
+
 
 #экспорт в xlsx
 workbook = xlsxwriter.Workbook(f"report.xlsx")
